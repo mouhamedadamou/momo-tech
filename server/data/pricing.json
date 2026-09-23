@@ -1,0 +1,24 @@
+{
+  "diamonds": [
+    { "id": "d-110",  "label": "110 Diamants",  "diamonds": 110,  "price": 800 },
+    { "id": "d-231",  "label": "231 Diamants",  "diamonds": 231,  "price": 1600 },
+    { "id": "d-341",  "label": "341 Diamants",  "diamonds": 341,  "price": 2100 },
+    { "id": "d-462",  "label": "462 Diamants",  "diamonds": 462,  "price": 2850 },
+    { "id": "d-583",  "label": "583 Diamants",  "diamonds": 583,  "price": 3500 },
+    { "id": "d-693",  "label": "693 Diamants",  "diamonds": 693,  "price": 4100 },
+    { "id": "d-814",  "label": "814 Diamants",  "diamonds": 814,  "price": 4850 },
+    { "id": "d-1045", "label": "1045 Diamants", "diamonds": 1045, "price": 6700 },
+    { "id": "d-1188", "label": "1188 Diamants", "diamonds": 1188, "price": 7250 },
+    { "id": "d-1771", "label": "1771 Diamants", "diamonds": 1771, "price": 10000, "badge": "Populaire" },
+    { "id": "d-2420", "label": "2420 Diamants", "diamonds": 2420, "price": 13000, "badge": "Meilleur rapport" },
+    { "id": "d-6160", "label": "6160 Diamants", "diamonds": 6160, "price": 36700, "badge": "Pack max" }
+  ],
+  "subscriptions": [
+    { "id": "s-hebdo",      "label": "Abonnement Hebdo",        "price": 1600, "description": "Avantages quotidiens pendant 7 jours." },
+    { "id": "s-mois",       "label": "Abonnement Mois",         "price": 7300, "description": "Avantages quotidiens pendant 30 jours." },
+    { "id": "s-lite",       "label": "Abonnement Lite",         "price": 700,  "description": "Version allégée de l'abonnement mensuel." },
+    { "id": "s-mois-hebdo", "label": "Abonnement Mois + Hebdo", "price": 8650, "description": "Le combo mensuel et hebdomadaire réunis." },
+    { "id": "s-booyah",     "label": "Booyah Pass",             "price": 3200, "description": "Passe saisonnier avec récompenses exclusives." },
+    { "id": "s-niveau",     "label": "Monter de niveau",        "price": 2500, "description": "Service de montée de niveau du compte." }
+  ]
+}

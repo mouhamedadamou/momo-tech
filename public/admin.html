@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Momo Tech — Administration</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="admin-login">
+  <form id="loginForm" class="admin-login-card">
+    <span class="mark" style="margin:0 auto 18px">MT</span>
+    <h1>Espace administrateur</h1>
+    <p class="lead">Momo Tech — gestion des commandes</p>
+    <div class="form-msg error" id="loginError"></div>
+    <div class="field">
+      <label for="username">Identifiant</label>
+      <input type="text" id="username" name="username" required autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" name="password" required autocomplete="current-password">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+  </form>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="admin-dashboard" style="display:none">
+  <header class="admin-topbar">
+    <a href="/" class="logo"><span class="mark">MT</span> Momo Tech — Admin</a>
+    <div class="admin-topbar-right">
+      <span id="whoami" class="admin-whoami"></span>
+      <button class="btn btn-secondary btn-sm" id="logoutBtn">Déconnexion</button>
+    </div>
+  </header>
+
+  <div class="admin-body">
+    <div class="admin-toolbar">
+      <div class="admin-filters" id="statusFilters">
+        <button class="chip is-active" data-status="all">Toutes</button>
+        <button class="chip" data-status="En attente">En attente</button>
+        <button class="chip" data-status="Payée">Payée</button>
+        <button class="chip" data-status="Traitée">Traitée</button>
+        <button class="chip" data-status="Annulée">Annulée</button>
+      </div>
+      <input type="search" id="searchInput" placeholder="Rechercher (UID, WhatsApp, référence, nom)…" class="admin-search">
+    </div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Offre</th>
+            <th>Montant</th>
+            <th>UID</th>
+            <th>Client</th>
+            <th>Statut</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody">
+          <tr><td colspan="7" class="admin-empty">Chargement…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER DETAIL DRAWER -->
+<div class="modal-overlay" id="detailOverlay">
+  <div class="modal" style="max-width:620px">
+    <button class="modal-close" id="closeDetail" aria-label="Fermer">✕</button>
+    <h2>Commande <span id="detailId"></span></h2>
+    <div id="detailBody" class="admin-detail"></div>
+  </div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
