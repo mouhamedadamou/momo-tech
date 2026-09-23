@@ -32,7 +32,7 @@
 
         const waLink = (text) => `https://wa.me/${data.whatsappIntl}?text=${encodeURIComponent(text)}`;
         document.getElementById('headerWhatsapp').href = waLink('Bonjour Momo Tech, je souhaite passer une commande.');
-        document.getElementById('contactWhatsapp').href = waLink('Bonjour Momo Tech, j\'ai une question.');
+        document.getElementById('contactWhatsapp').href = waLink('Bonjour Momo Tech, je souhaite passer une commande.');
       })
       .catch(() => {});
   }
