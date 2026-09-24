@@ -175,11 +175,28 @@
 
       <div class="detail-actions">
         <button class="btn btn-primary" id="saveDetail">Enregistrer</button>
+        <button class="btn btn-danger" id="deleteDetail" style="display:none">🗑️ Supprimer la commande</button>
         <a class="btn btn-secondary" href="https://wa.me/${toWaNumber(o.whatsapp)}?text=${encodeURIComponent('Bonjour ' + (o.player_name || '') + ', au sujet de votre commande ' + o.offer_label)}" target="_blank" rel="noopener">Contacter sur WhatsApp</a>
       </div>
     `;
 
     document.getElementById('saveDetail').addEventListener('click', () => saveDetail(o.id));
+    const deleteBtn = document.getElementById('deleteDetail');
+    
+    deleteBtn.addEventListener('click', async () => {
+  if (!confirm('Supprimer définitivement cette commande ?')) return;
+
+  const res = await fetch(`/api/admin/orders/${o.id}`, {
+    method: 'DELETE'
+  });
+
+  if (res.ok) {
+    alert('Commande supprimée.');
+    location.reload();
+  } else {
+    alert('Impossible de supprimer la commande.');
+  }
+});
     detailOverlay.classList.add('is-open');
   }
 
