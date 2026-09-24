@@ -175,7 +175,7 @@
 
       <div class="detail-actions">
         <button class="btn btn-primary" id="saveDetail">Enregistrer</button>
-        <button class="btn btn-danger" id="deleteDetail" style="display:none">🗑️ Supprimer la commande</button>
+        <button class="btn btn-danger" id="deleteDetail">
         <a class="btn btn-secondary" href="https://wa.me/${toWaNumber(o.whatsapp)}?text=${encodeURIComponent('Bonjour ' + (o.player_name || '') + ', au sujet de votre commande ' + o.offer_label)}" target="_blank" rel="noopener">Contacter sur WhatsApp</a>
       </div>
     `;
