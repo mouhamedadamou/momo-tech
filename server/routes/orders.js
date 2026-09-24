@@ -99,19 +99,17 @@ router.post('/', orderLimiter, upload.single('proof'), (req, res) => {
       req.file.filename,
       req.file.originalname
     );
-
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD
-  }
-});
-
-transporter.sendMail({
-  from: process.env.GMAIL_USER,
-  to: process.env.GMAIL_USER,
-  subject: `🛒 Nouvelle commande - ${offer.label}`,
-  text: `
+fetch('https://api.resend.com/emails', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+  },
+  body: JSON.stringify({
+    from: 'Momo Shop <onboarding@resend.dev>',
+    to: [process.env.GMAIL_USER],
+    subject: `🛒 Nouvelle commande - ${offer.label}`,
+    text: `
 Nouvelle commande reçue sur Momo Shop.
 
 Offre : ${offer.label}
@@ -122,34 +120,19 @@ Nom du joueur : ${playerName || 'Non renseigné'}
 WhatsApp : ${whatsappClean}
 Email client : ${email || 'Non renseigné'}
 Mode de paiement : ${paymentMethod}
-Référence : ${refClean}`
-}).catch(err => {
-  console.error('Erreur envoi email commande :', err);
-});
-fetch('https://api.resend.com/emails', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    from: 'Momo Shop <onboarding@resend.dev>',
-    to: [process.env.GMAIL_USER],
-    subject: `🛒 Nouvelle commande - ${offer.label}`,
-    text: `Nouvelle commande reçue sur Momo Shop.
-
-Offre : ${offer.label}
-Catégorie : ${offer.category}
-Prix : ${offer.price} FCFA
-UID Free Fire : ${uidClean}
-Nom du joueur : ${playerName || 'Non renseigné'}
-WhatsApp : ${whatsappClean}
-Email client : ${email || 'Non renseigné'}
-Mode de paiement : ${paymentMethod}
-Référence : ${refClean}`
+Référence : ${refClean}
+    `
   })
-}).catch(err => {
-  console.error('Erreur envoi email Resend :', err);
+})
+.then(async response => {
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || JSON.stringify(data));
+  }
+  console.log('Email notification envoyé :', data);
+})
+.catch(err => {
+  console.error('Erreur envoi email commande :', err);
 });
     res.json({
       ok: true,
