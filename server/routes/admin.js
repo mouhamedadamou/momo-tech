@@ -102,5 +102,25 @@ router.patch('/orders/:id', requireAdmin, (req, res) => {
 
   res.json({ ok: true });
 });
+router.delete('/orders/:id', requireAdmin, (req, res) => {
+  const existing = db.prepare('SELECT * FROM orders WHERE id = ?').get(req.params.id);
+
+  if (!existing) {
+    return res.status(404).json({ error: 'Commande introuvable.' });
+  }
+
+  if (existing.status !== 'Annulée') {
+    return res.status(400).json({ error: 'Seules les commandes annulées peuvent être supprimées.' });
+  }
+
+  if (existing.proof_filename) {
+    const filePath = path.join(__dirname, '..', '..', 'uploads', existing.proof_filename);
+    if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+  }
+
+  db.prepare('DELETE FROM orders WHERE id = ?').run(req.params.id);
+
+  res.json({ ok: true });
+});
 
 module.exports = router;
