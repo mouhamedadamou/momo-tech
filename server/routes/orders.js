@@ -3,6 +3,7 @@ const router = express.Router();
 const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const path = require('path');
+const nodemailer = require('nodemailer');
 
 const db = require('../db');
 const upload = require('../middleware/upload');
@@ -98,7 +99,33 @@ router.post('/', orderLimiter, upload.single('proof'), (req, res) => {
       req.file.filename,
       req.file.originalname
     );
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD
+  }
+});
 
+transporter.sendMail({
+  from: process.env.GMAIL_USER,
+  to: process.env.GMAIL_USER,
+  subject: `🛒 Nouvelle commande - ${offer.label}`,
+  text: `
+Nouvelle commande reçue sur Momo Shop.
+
+Offre : ${offer.label}
+Catégorie : ${offer.category}
+Prix : ${offer.price} FCFA
+UID Free Fire : ${uidClean}
+Nom du joueur : ${playerName || 'Non renseigné'}
+WhatsApp : ${whatsappClean}
+Email client : ${email || 'Non renseigné'}
+Mode de paiement : ${paymentMethod}
+Référence : ${refClean}`
+}).catch(err => {
+  console.error('Erreur envoi email commande :', err);
+});
     res.json({
       ok: true,
       message:
