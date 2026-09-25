@@ -44,13 +44,6 @@
   padding: 10px 14px; color: var(--text); min-width: 280px; font-size: 14px;
 }
 
-@media (max-width: 640px) {
-  .admin-topbar { padding: 0 16px; }
-  .admin-body { padding: 20px 16px; }
-  .admin-toolbar { flex-direction: column; align-items: stretch; }
-  .admin-search { min-width: 0; width: 100%; }
-}
-
 .admin-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-m); }
 .admin-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 760px; }
 .admin-table th {
